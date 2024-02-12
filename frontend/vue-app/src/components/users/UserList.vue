@@ -1,47 +1,33 @@
 <template>
   <base-container>
     <div>userlist</div>
+    <base-search @search="updateSearch" :search-term="enteredSearchTerm" />
     <ul>
-      <user-item :key="user.id" v-for="user in users_" :user-name="user.fullName" :user="user"></user-item>
+      <user-item :key="user.id" v-for="user in availableItems" :id="user.id" :user-name="user.fullName"></user-item>
     </ul>
   </base-container>
 </template>
 
 <script>
-import BaseContainer from '../UI/BaseContainer';
+import BaseContainer from '@/components/UI/BaseContainer.vue';
+import BaseSearch from '@/components/UI/BaseSearch.vue';
 import UserItem from './UserItem.vue';
-import { toRefs, ref, toRef } from 'vue';
+import useSearch from '@/hooks/useSearch';
+import { toRefs } from 'vue';
 
 export default {
   components: {
     BaseContainer,
     UserItem,
+    BaseSearch,
   },
   props: ['users'],
   setup(props) {
     const { users } = toRefs(props);
-    const usersAlias = toRef(users);
-    const refitem = ref(users);
-    const item = users;
 
-    console.log('users', users);
-    console.log('refitem', refitem);
-    console.log('usersAlias', usersAlias);
+    const { enteredSearchTerm, availableItems, updateSearch } = useSearch(users, 'fullName');
 
-    console.log('item', item);
-    console.log('prop item');
-
-    // const displayedItems = computed(function () {
-    //   return users;
-    // });
-    // console.log('users', users.value);
-    // const availableItems = computed(function () {
-    //   return users;
-    // });
-    // const { users } = toRefs(props);
-    // console.log('users', users);
-    // console.log('availableItems', availableItems);
-    return { users_: refitem };
+    return { enteredSearchTerm, updateSearch, availableItems };
   },
 };
 </script>

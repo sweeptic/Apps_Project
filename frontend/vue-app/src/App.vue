@@ -1,16 +1,15 @@
 <template>
   <main>
     <user-list :users="activeUsers" />
-    <projects-list />
+    <projects-list :user="selectedUser" />
   </main>
-  <button @click="clickMe">CLICK ME</button>
 </template>
 
 <script>
 import ProjectsList from './components/projects/ProjectsList.vue';
 import UserList from './components/users/UserList.vue';
 import USER_DATA from './dummy-data.js';
-import { ref, toRef, reactive } from 'vue';
+import { provide, ref } from 'vue';
 
 export default {
   components: {
@@ -19,31 +18,15 @@ export default {
   },
 
   setup() {
-    const clickMe = () => {
-      //   console.log('click', refList);
-      //   const updated = [...activeUsers];
-      // refList_1.value[0].fullName = 'deleted';
-      //   refList_2.value[0].fullName = 'deleted';
+    let selectedUser = ref(null);
+    const activeUsers = USER_DATA;
 
-      //   console.log('refList_3.value', refList_3[1]);
-
-      refList_3[0].fullName = 'deleted';
-      //   activeUsers = [];
+    const selectUser = (id) => {
+      selectedUser.value = activeUsers.find((userItem) => userItem.id === id);
     };
-    // let activeUsers = USER_DATA;
+    provide('selectUser', selectUser);
 
-    const refList_1 = toRef(USER_DATA);
-    const refList_2 = ref(USER_DATA);
-    const refList_3 = reactive(USER_DATA);
-    // const refList_4 = toRefs(USER_DATA);
-    // console.log('activeUsers', activeUsers);
-
-    console.log('refList_1', refList_1);
-    console.log('refList_2', refList_2);
-    console.log('refList_3', refList_3);
-    // console.log('refList_4', refList_4);
-
-    return { activeUsers: refList_1, clickMe };
+    return { activeUsers, selectedUser };
   },
 };
 </script>
