@@ -5,6 +5,10 @@
    * @type {any}
    */
   export let userData;
+  /**
+   * @type {any}
+   */
+  export let onClickHandler;
 
   console.log('data', userData);
 </script>
@@ -13,7 +17,7 @@
   <ul>
     {#each userData as user (user.id)}
       <div>
-        <UserItem {user} />
+        <UserItem {user} {onClickHandler} />
       </div>
     {/each}
   </ul>

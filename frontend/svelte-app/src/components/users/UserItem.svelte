@@ -1,10 +1,15 @@
 <script>
   /**
-   * @type {{ fullName: any; }}
+   * @type {{ fullName: any; id:any }}
    */
   export let user;
+  /**
+   * @type {any}
+   */
+  export let onClickHandler;
 </script>
 
-<div>
+<li>
   <h3>{user.fullName}</h3>
-</div>
+  <button on:click={onClickHandler(user.id)}>Select</button>
+</li>
