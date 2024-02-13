@@ -12,7 +12,8 @@ export default {
 
 <style>
 section {
-  background-color: rgb(129, 129, 129);
+  padding: 2rem;
+  background-color: rgb(68, 97, 73);
   width: 100%;
   /* height: 300px; */
   margin: 2rem;

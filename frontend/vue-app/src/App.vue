@@ -1,6 +1,9 @@
 <template>
   <main>
-    <user-list :users="activeUsers" />
+    <div v-if="isLoading">
+      <span>loading...</span>
+    </div>
+    <user-list :users="users" />
     <projects-list :user="selectedUser" />
   </main>
 </template>
@@ -8,8 +11,8 @@
 <script>
 import ProjectsList from './components/projects/ProjectsList.vue';
 import UserList from './components/users/UserList.vue';
-import USER_DATA from './dummy-data.js';
-import { provide, ref } from 'vue';
+import { provide, ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   components: {
@@ -19,14 +22,24 @@ export default {
 
   setup() {
     let selectedUser = ref(null);
-    const activeUsers = USER_DATA;
+    const store = useStore();
 
     const selectUser = (id) => {
-      selectedUser.value = activeUsers.find((userItem) => userItem.id === id);
+      selectedUser.value = users.value.find((userItem) => userItem.id === id);
     };
     provide('selectUser', selectUser);
 
-    return { activeUsers, selectedUser };
+    store.dispatch('loadUsers');
+
+    const users = computed(function () {
+      return store.getters.getUsers;
+    });
+
+    const isLoading = computed(() => {
+      return !store.getters.getUsers;
+    });
+
+    return { selectedUser, users, isLoading };
   },
 };
 </script>
@@ -37,7 +50,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #0a0e11;
   margin-top: 60px;
 }
 
