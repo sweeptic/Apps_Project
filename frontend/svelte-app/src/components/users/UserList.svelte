@@ -8,6 +8,7 @@
    * @type {any}
    */
   export let userData;
+
   /**
    * @type {any}
    */
@@ -19,8 +20,8 @@
 </script>
 
 <div>
-  <BaseSearch itemList={userData} on:filteredList={onChangeFilter} filterField={'fullName'} />
   <ul>
+    <BaseSearch itemList={userData} on:filteredList={onChangeFilter} filterField={'fullName'} />
     {#each filteredUsers as user (user.id)}
       <div>
         <UserItem {user} {onClickHandler} />

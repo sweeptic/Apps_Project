@@ -10,6 +10,8 @@
   export let clearInput = false;
   export let filterField = '';
 
+  $: disabled = !itemList;
+
   const dispatch = createEventDispatcher();
 
   // @ts-ignore
@@ -36,5 +38,5 @@
 </script>
 
 <div>
-  <input type="text" on:input={onInputChange} bind:value={inputValue} />
+  <input type="text" on:input={onInputChange} bind:value={inputValue} {disabled} />
 </div>
