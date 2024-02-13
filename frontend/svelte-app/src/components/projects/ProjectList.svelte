@@ -8,7 +8,6 @@
    * @type {{projects: { id: string; title: string; }[]; }| undefined}
    */
   export let selectedUser;
-
   let inputValue;
 
   $: filteredProjects = selectedUser?.projects || [];
