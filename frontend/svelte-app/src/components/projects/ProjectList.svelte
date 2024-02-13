@@ -1,32 +1,21 @@
 <script>
   // @ts-nocheck
 
-  import BaseSearch from './../../UI/BaseSearch.svelte';
+  import BaseSearch from '../UI/BaseSearch.svelte';
   import ProjectItem from './ProjectItem.svelte';
 
   /**
    * @type {{projects: { id: string; title: string; }[]; }| undefined}
    */
   export let selectedUser;
-  let inputValue;
+  let clearInput = true;
+  const onChangeFilter = (ev) => (filteredProjects = ev.detail);
 
   $: filteredProjects = selectedUser?.projects || [];
-
-  $: if (selectedUser) {
-    inputValue = '';
-  }
-
-  const onFilter = (/** @type {any} */ ev) => {
-    inputValue = ev.detail;
-    if (selectedUser) {
-      const filtered = [...selectedUser.projects].filter((item) => item.title.includes(ev.detail));
-      filteredProjects = [...filtered];
-    }
-  };
 </script>
 
 <div>
-  <BaseSearch on:filter={onFilter} {inputValue} />
+  <BaseSearch {clearInput} filterField={'title'} itemList={selectedUser?.projects} on:filteredList={onChangeFilter} />
   <ul>
     {#if selectedUser}
       {#if !filteredProjects.length}

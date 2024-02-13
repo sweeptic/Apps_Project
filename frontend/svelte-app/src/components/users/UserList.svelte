@@ -1,4 +1,7 @@
 <script>
+  // @ts-nocheck
+
+  import BaseSearch from '../UI/BaseSearch.svelte';
   import UserItem from './UserItem.svelte';
   // your script goes here
   /**
@@ -10,12 +13,15 @@
    */
   export let onClickHandler;
 
-  console.log('data', userData);
+  const onChangeFilter = (/** @type {{ detail: any; }} */ ev) => (filteredUsers = ev.detail);
+
+  $: filteredUsers = userData || [];
 </script>
 
 <div>
+  <BaseSearch itemList={userData} on:filteredList={onChangeFilter} filterField={'fullName'} />
   <ul>
-    {#each userData as user (user.id)}
+    {#each filteredUsers as user (user.id)}
       <div>
         <UserItem {user} {onClickHandler} />
       </div>
