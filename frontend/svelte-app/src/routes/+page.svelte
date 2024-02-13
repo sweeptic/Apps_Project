@@ -9,10 +9,14 @@
    * @type {any[] | undefined}
    */
   let selectedUser;
+  let actualUser;
 
   const onClickHandler = (/** @type {string} */ id) => {
+    if (id !== actualUser) {
+      selectedUser = dummyData.find((user) => user.id === id);
+      actualUser = id;
+    }
     // @ts-ignore
-    selectedUser = dummyData.find((user) => user.id === id);
   };
 </script>
 
