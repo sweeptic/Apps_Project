@@ -1,25 +1,19 @@
 <script>
-  // @ts-nocheck
-
   import ProjectList from './../components/projects/ProjectList.svelte';
   import UserList from '../components/users/UserList.svelte';
   import dummyData from '../data/dummy-data';
   import customUsersStore from '../components/store/app-store';
 
-  /**
-   * @type {any[] | undefined}
-   */
   let selectedUser;
   let actualUser;
   let updatedUserData;
   $: isLoading = !$customUsersStore.length;
 
-  const onClickHandler = (/** @type {string} */ id) => {
+  const onClickHandler = (id) => {
     if (id !== actualUser) {
       selectedUser = updatedUserData.find((user) => user.id === id);
       actualUser = id;
     }
-    // @ts-ignore
   };
 
   setTimeout(() => {
@@ -33,25 +27,24 @@
   //     unsubscribe();
   //   }
 
-  $: console.log('isLoading', isLoading);
-
   $: updatedUserData = [...$customUsersStore];
 </script>
 
 {#if isLoading}
   <span>Loading...</span>
 {:else}
-  <section id="user-list">
+  <main id="main">
     <UserList userData={updatedUserData} {onClickHandler} />
+
     <ProjectList {selectedUser} />
-  </section>
+  </main>
 {/if}
 
 <!-- <h1>Welcome to SvelteKit</h1> -->
 <!-- <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p> -->
 
 <style>
-  #user-list {
+  #main {
     display: flex;
     justify-content: space-between;
   }

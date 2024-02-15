@@ -1,7 +1,4 @@
 <script>
-  /**
-   * @type {{ id:string, title: string; }}
-   */
   export let project;
 </script>
 

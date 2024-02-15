@@ -1,8 +1,6 @@
 <template>
-  <main>
-    <div v-if="isLoading">
-      <span>loading...</span>
-    </div>
+  <span v-if="isLoading">loading...</span>
+  <main v-else>
     <user-list :users="users" />
     <projects-list :user="selectedUser" />
   </main>
@@ -49,9 +47,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #0a0e11;
-  margin-top: 60px;
 }
 
 main {

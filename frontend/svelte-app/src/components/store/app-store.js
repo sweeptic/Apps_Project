@@ -5,11 +5,21 @@ const users = writable([]);
 const customUsersStore = {
     subscribe: users.subscribe,
 
-    // @ts-ignore
-    setUsers: (/** @type {any[]} */ usersArray) => users.set(usersArray),
+    setUsers: (usersArray) => users.set(usersArray),
 
 }
 
+/** 
+     @type {
+    {
+        id: string,
+        fullName: string
+        projects: {
+            id: string,
+            title: string}[]   
+    }[]
+    }
+    */
 
 
 export default customUsersStore;

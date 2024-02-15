@@ -1,11 +1,5 @@
 <script>
-  /**
-   * @type {{ fullName: any; id:any }}
-   */
   export let user;
-  /**
-   * @type {any}
-   */
   export let onClickHandler;
 </script>
 

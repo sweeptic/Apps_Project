@@ -1,4 +1,5 @@
-export default [
+
+const userData = [
     {
         id: 'max',
         fullName: 'A Maximilian Schwarzmüller',
@@ -31,3 +32,6 @@ export default [
         projects: []
     }
 ];
+
+
+export default userData
