@@ -17,7 +17,7 @@ export const ProjectsList: FC<Props> = ({ selectedUser }) => {
         <ul>
           {selectedUser?.projects.map((item, index) => {
             return (
-              <li>
+              <li key={index}>
                 <h4>{item?.title}</h4>
               </li>
             );
