@@ -1,5 +1,6 @@
-section {
-  padding: 2rem;
+.containerSection {
+  padding: 2rem 2rem 2rem 0rem;
+
   background-color: rgb(94, 158, 193);
   width: 100%;
   /* height: 300px; */
