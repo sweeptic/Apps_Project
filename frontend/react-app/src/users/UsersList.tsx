@@ -1,27 +1,28 @@
-import { useSearch } from 'hooks/useSearch';
-import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
-import { UserData } from 'store/dummy-data';
+import { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
+
 import { BaseContainer } from 'UI/BaseContainer';
 import { BaseSearch } from 'UI/BaseSearch';
+import { UserData } from 'store/dummy-data';
+import { useSearch } from 'hooks/useSearch';
 
-interface Props {
-  children?: React.ReactNode;
+interface UserProps extends React.PropsWithChildren {
   usersData?: UserData[];
   selectedUser: Dispatch<SetStateAction<UserData | undefined>>;
 }
 
-export const UsersList: FC<Props> = ({ usersData, selectedUser }) => {
-  const searchKey = 'fullName';
-  const searchInputRef = useRef<HTMLInputElement>(null);
+export const UsersList: FC<UserProps> = ({ usersData, selectedUser }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const { availableItems } = useSearch(searchTerm, searchInputRef, searchKey, usersData);
+  const UserSearchInputRef = useRef<HTMLInputElement>(null);
+  const searchKey = 'fullName';
+
+  const { availableItems: availableUserItems } = useSearch(searchTerm, UserSearchInputRef, searchKey, usersData);
 
   return (
     <BaseContainer>
       {!usersData && <span>Loading...</span>}
-      <BaseSearch setSearchTerm={setSearchTerm} searchInputRef={searchInputRef} />
+      <BaseSearch setSearchTerm={setSearchTerm} searchInputRef={UserSearchInputRef} />
       <ul>
-        {availableItems?.map((item, index) => {
+        {availableUserItems?.map((item, index) => {
           return (
             <li key={index}>
               <h3>{item.fullName}</h3>

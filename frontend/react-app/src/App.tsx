@@ -1,13 +1,13 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { ProjectsList } from 'projects/ProjectsList';
 import { UsersList } from 'users/UsersList';
 import { UserData, getUsersData } from 'store/dummy-data';
 
-function App() {
-  const [usersData, setUsersData] = useState<undefined | UserData[]>(undefined);
-  const [selectedUser, setSelectedUser] = useState<undefined | UserData>(undefined);
+export const App: FC = () => {
+  const [usersData, setUsersData] = useState<UserData[]>();
+  const [selectedUser, setSelectedUser] = useState<UserData>();
 
   useEffect(() => {
     async function fetchData() {
@@ -29,6 +29,4 @@ function App() {
       </main>
     </div>
   );
-}
-
-export default App;
+};

@@ -1,21 +1,36 @@
-import { FC } from 'react';
-import './ProjectsList.css';
-import { BaseContainer } from 'UI/BaseContainer';
-import { UserData } from 'store/dummy-data';
+import { FC, useRef, useState } from 'react';
 
-interface Props {
-  children?: React.ReactNode;
+import { BaseContainer } from 'UI/BaseContainer';
+import { BaseSearch } from 'UI/BaseSearch';
+import { UserData } from 'store/dummy-data';
+import { useSearch } from 'hooks/useSearch';
+import './ProjectsList.css';
+
+interface ProjectsProps {
   selectedUser?: UserData;
 }
 
-export const ProjectsList: FC<Props> = ({ selectedUser }) => {
+export const ProjectsList: FC<ProjectsProps> = ({ selectedUser }) => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const ProjectSearchInputRef = useRef<HTMLInputElement>(null);
+  const userProjects = selectedUser?.projects;
+  const searchKey = 'title';
+
+  const { availableItems: availableProjectItems } = useSearch(
+    searchTerm,
+    ProjectSearchInputRef,
+    searchKey,
+    userProjects
+  );
+
   return (
     <BaseContainer>
       {!selectedUser && <span>There is no selected user.</span>}
       <>
         <h3>{selectedUser?.fullName}</h3>
+        <BaseSearch setSearchTerm={setSearchTerm} searchInputRef={ProjectSearchInputRef} />
         <ul>
-          {selectedUser?.projects.map((item, index) => {
+          {availableProjectItems?.map((item, index) => {
             return (
               <li key={index}>
                 <h4>{item?.title}</h4>
