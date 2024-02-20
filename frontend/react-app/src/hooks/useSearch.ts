@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 export const useSearch = <T>(
   searchTerm: string,
   searchInputRef: React.RefObject<HTMLInputElement>,
-  searchKey: string,
+  searchKey: keyof T,
   items?: T[]
 ) => {
   const [filteredItems, setFilteredItems] = useState<T[]>([]);
@@ -25,7 +25,7 @@ export const useSearch = <T>(
         }
       }, 500);
     }
-  }, [items, searchTerm]);
+  }, [items, searchTerm, searchInputRef, searchKey]);
 
   return { availableItems: filteredItems };
 };

@@ -1,6 +1,15 @@
 import { FC, PropsWithChildren } from 'react';
 import './BaseContainer.css';
+import { Spinner } from './spinner/Spinner';
 
-export const BaseContainer: FC<PropsWithChildren> = ({ children }) => {
-  return <section className="containerSection">{children}</section>;
+interface BaseContainerProps extends PropsWithChildren {
+  isLoading?: boolean;
+}
+
+export const BaseContainer: FC<BaseContainerProps> = ({ children, isLoading = false }) => {
+  return <section className="containerSection">{isLoading ? <Spinner /> : children}</section>;
 };
+
+//   {
+//     isLoading.show && <Spinner />;
+//   }

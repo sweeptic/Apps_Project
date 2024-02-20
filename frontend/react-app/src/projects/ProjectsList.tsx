@@ -10,11 +10,15 @@ interface ProjectsProps {
   selectedUser?: UserData;
 }
 
+enum SearchKey {
+  TITLE = 'title',
+}
+
 export const ProjectsList: FC<ProjectsProps> = ({ selectedUser }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const ProjectSearchInputRef = useRef<HTMLInputElement>(null);
   const userProjects = selectedUser?.projects;
-  const searchKey = 'title';
+  const searchKey = SearchKey.TITLE;
 
   const { availableItems: availableProjectItems } = useSearch(
     searchTerm,
@@ -25,19 +29,23 @@ export const ProjectsList: FC<ProjectsProps> = ({ selectedUser }) => {
 
   return (
     <BaseContainer>
-      {!selectedUser && <span>There is no selected user.</span>}
       <>
+        {!selectedUser && <span>There is no selected user.</span>}
         <h3>{selectedUser?.fullName}</h3>
-        <BaseSearch setSearchTerm={setSearchTerm} searchInputRef={ProjectSearchInputRef} />
-        <ul>
-          {availableProjectItems?.map((item, index) => {
-            return (
-              <li key={index}>
-                <h4>{item?.title}</h4>
-              </li>
-            );
-          })}
-        </ul>
+        {selectedUser && (
+          <>
+            <BaseSearch setSearchTerm={setSearchTerm} searchInputRef={ProjectSearchInputRef} />
+            <ul>
+              {availableProjectItems?.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <h4>{item?.title}</h4>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        )}
       </>
     </BaseContainer>
   );
