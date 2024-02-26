@@ -1,10 +1,11 @@
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
+const Project = require('../models/project');
 
 const getUsers = async (req, res, next) => {
     let users;
     try {
-        users = await User.find({});
+        users = await User.find({}).populate('projects');
     } catch (err) {
         console.log('err', err);
 
