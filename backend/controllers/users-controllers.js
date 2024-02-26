@@ -13,6 +13,8 @@ const getUsers = async (req, res, next) => {
             'Fetching users failed, please try again later.',
             500
         );
+        console.log('RETURN NEXT');
+
         return next(error);
     }
     console.log('getUsers');

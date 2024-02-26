@@ -5,6 +5,7 @@ import { BaseSearch } from 'UI/BaseSearch';
 import { UserData } from 'store/dummy-data';
 import { useSearch } from 'hooks/useSearch';
 import './ProjectsList.css';
+import { useGetPostById } from 'features/projects';
 
 interface ProjectsProps {
   selectedUser?: UserData;
@@ -17,14 +18,16 @@ enum SearchKey {
 export const ProjectsList: FC<ProjectsProps> = ({ selectedUser }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const ProjectSearchInputRef = useRef<HTMLInputElement>(null);
-  const userProjects = selectedUser?.projects;
+  //   const userProjects = selectedUser?.projects;
   const searchKey = SearchKey.TITLE;
+
+  const { post } = useGetPostById(selectedUser?.id);
 
   const { availableItems: availableProjectItems } = useSearch(
     searchTerm,
     ProjectSearchInputRef,
     searchKey,
-    userProjects
+    post?.projects
   );
 
   return (

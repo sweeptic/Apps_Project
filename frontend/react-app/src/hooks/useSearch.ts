@@ -9,7 +9,10 @@ export const useSearch = <T>(
   const [filteredItems, setFilteredItems] = useState<T[]>([]);
 
   useEffect(() => {
+    console.log('EFFECT', items);
+
     if (items && !searchTerm) {
+      //   console.log('UPDATE', items);
       setFilteredItems([...items]);
     } else {
       SearchByTerm();
@@ -17,10 +20,13 @@ export const useSearch = <T>(
 
     function SearchByTerm() {
       setTimeout(() => {
-        if (searchTerm === searchInputRef?.current?.value) {
+        if (searchTerm.length > 0 && searchTerm === searchInputRef?.current?.value) {
+          //   console.log('items', items);
           const filtered = items?.filter((item) =>
             (item[searchKey as keyof typeof item] as string).includes(searchTerm)
           );
+          //   console.log('UPDATE2 ', filtered || []);
+
           setFilteredItems(filtered || []);
         }
       }, 500);
